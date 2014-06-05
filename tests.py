@@ -1,4 +1,4 @@
-"""\
+"""
 General tests on general functions in python-sisow
 """
 from unittest import TestCase
@@ -30,7 +30,7 @@ class TestInvalidNotorious(TestCase):
             '31uEbMgunupShBVTewXjtqbBv5MndwfXhb',  # from https://en.bitcoin.it/wiki/Address but invalid!
             '175tWpb8K1S7NmH4Zx6rewF9WQrcZv245W',  # from wikipedia article, but invalid
         ]
-    
+
     def test_invalid(self):
         for bitcoin_address in self.addresses:
             self.assertFalse(bitcoinaddress.validate(bitcoin_address))
@@ -60,9 +60,8 @@ class TestValid(TestCase):
             '1cYxzmWaSsjdrfTqzJ1zTXtR7k8je9qVv',
             '12HzMcHURwmAxAkfWgtktYsF3vRTkBz4F3',
             '1GHATvgY4apPiBqmGkqfM3vWCbqtGAwKQ9',
-            '3NukJ6fYZJ5Kk8bPjycAnruZkE5Q7UW7i8',
         ]
-    
+
     def test_valid(self):
         for bitcoin_address in self.addresses:
             self.assertTrue(bitcoinaddress.validate(bitcoin_address))
@@ -80,7 +79,7 @@ class TestInvalid(TestCase):
             valid.replace('N', 'P', 1),
             'mpc1rKeaMSCuQnJevMViLuq8uWjHwgdjiV', # testnet invalid by default
         ]
-    
+
     def test_invalid(self):
         for bitcoin_address in self.addresses:
             self.assertFalse(bitcoinaddress.validate(bitcoin_address))
@@ -88,8 +87,13 @@ class TestInvalid(TestCase):
 
 class TestValidTestnet(TestCase):
     def test_valid(self):
+        # bitcoin testnet
         self.assertTrue(bitcoinaddress.validate(
-            'mpc1rKeaMSCuQnJevMViLuq8uWjHwgdjiV', allow_testnet=True))
+            'mpc1rKeaMSCuQnJevMViLuq8uWjHwgdjiV', magicbyte=111))
+        # bitcoin multisig (from https://gist.github.com/gavinandresen/3966071)
+        self.assertTrue(bitcoinaddress.validate(
+            '3QJmV3qfvL9SuYo34YihAf3sRCW3qSinyC', magicbyte=5))
+
 
 if __name__ == '__main__':
     from unittest import main
