@@ -2,7 +2,6 @@
 Copied from:
 http://rosettacode.org/wiki/Bitcoin/address_validation#Python
 """
-import string
 from hashlib import sha256
 
 digits58 = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
